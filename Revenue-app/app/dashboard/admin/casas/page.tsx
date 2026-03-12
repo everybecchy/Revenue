@@ -206,7 +206,7 @@ export default function AdminCasasPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 bg-gradient-to-r from-primary to-secondary text-white font-medium py-2.5 px-4 rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-primary to-secondary text-slate-800 font-medium py-2.5 px-4 rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

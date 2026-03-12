@@ -199,7 +199,7 @@ export default function InstalarPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-slate-800 font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
           >
             Voltar para o Login
           </Link>

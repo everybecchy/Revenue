@@ -1,93 +1,105 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
-export function useTheme() {
-  const [mounted, setMounted] = useState(false)
-  const [theme, setThemeState] = useState<"light" | "dark" | "system">("light")
-  const [nextThemeHook, setNextThemeHook] = useState<any>(null)
+type Theme = "light" | "dark" | "system";
+
+type ThemeContextType = {
+  theme: Theme;
+  mounted: boolean;
+  setTheme: (newTheme: Theme) => void;
+  toggleTheme: () => void;
+};
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+function getSystemTheme(): "light" | "dark" {
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function applyTheme(theme: Theme) {
+  if (typeof document === "undefined") return;
+
+  const root = document.documentElement;
+  const resolvedTheme = theme === "system" ? getSystemTheme() : theme;
+
+  root.classList.remove("light", "dark");
+  root.classList.add(resolvedTheme);
+  root.setAttribute("data-theme", resolvedTheme);
+}
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>("system");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-    
-    // Dynamically import and call next-themes hook on client side
-    try {
-      const { useTheme: useNextTheme } = require("next-themes")
-      const hook = useNextTheme()
-      setNextThemeHook(hook)
-      if (hook?.theme) {
-        setThemeState(hook.theme)
-      }
-    } catch (e) {
-      // next-themes not available or error occurred
-    }
-  }, [])
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    const initialTheme: Theme =
+      savedTheme === "light" || savedTheme === "dark" || savedTheme === "system"
+        ? savedTheme
+        : "system";
+
+    setThemeState(initialTheme);
+    applyTheme(initialTheme);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    applyTheme(theme);
+    localStorage.setItem("theme", theme);
+
+    if (theme !== "system") return;
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = () => {
+      applyTheme("system");
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [theme, mounted]);
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+  };
 
   const toggleTheme = () => {
-    if (nextThemeHook?.setTheme) {
-      const newTheme = theme === "dark" ? "light" : "dark"
-      nextThemeHook.setTheme(newTheme)
-      setThemeState(newTheme)
-    }
-  }
+    const currentTheme = theme === "system" ? getSystemTheme() : theme;
+    setThemeState(currentTheme === "dark" ? "light" : "dark");
+  };
 
-  return {
-    theme,
-    setTheme: (newTheme: string) => {
-      setThemeState(newTheme as "light" | "dark" | "system")
-      if (nextThemeHook?.setTheme) {
-        nextThemeHook.setTheme(newTheme)
-      }
-    },
-    toggleTheme,
-    mounted,
-  }
+  const value = useMemo<ThemeContextType>(
+    () => ({
+      theme,
+      mounted,
+      setTheme,
+      toggleTheme,
+    }),
+    [theme, mounted]
+  );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
-    }
+export function useTheme() {
+  const context = useContext(ThemeContext);
 
-    // Now use the hook
-    if (useNextTheme) {
-      try {
-        const nextThemeHook = useNextTheme()
-        if (nextThemeHook?.theme) {
-          setThemeState(nextThemeHook.theme as "light" | "dark" | "system")
-        }
-      } catch (e) {
-        // Failed to get theme from next-themes
-      }
-    }
-  }, [])
-
-  const toggleTheme = () => {
-    if (useNextTheme) {
-      try {
-        const nextThemeHook = useNextTheme()
-        const newTheme = theme === "dark" ? "light" : "dark"
-        nextThemeHook?.setTheme(newTheme)
-        setThemeState(newTheme)
-      } catch (e) {
-        // Failed to toggle theme
-      }
-    }
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
 
-  return {
-    theme,
-    setTheme: (newTheme: string) => {
-      setThemeState(newTheme as "light" | "dark" | "system")
-      if (useNextTheme) {
-        try {
-          const nextThemeHook = useNextTheme()
-          nextThemeHook?.setTheme(newTheme)
-        } catch (e) {
-          // Failed to set theme
-        }
-      }
-    },
-    toggleTheme,
-    mounted,
-  }
+  return context;
 }
-
-

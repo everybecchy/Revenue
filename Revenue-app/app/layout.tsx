@@ -48,18 +48,18 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js').catch(err => 
-                  console.log('SW registration failed: ', err)
-                );
+                window.addEventListener('load', function () {
+                  navigator.serviceWorker.register('/sw.js').catch(function (err) {
+                    console.log('SW registration failed: ', err);
+                  });
+                });
               }
             `,
           }}
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

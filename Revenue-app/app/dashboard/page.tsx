@@ -21,7 +21,12 @@ interface MetricCardProps {
   iconColor?: string;
 }
 
-function MetricCard({ icon, label, value, iconColor = "text-primary" }: MetricCardProps) {
+function MetricCard({
+  icon,
+  label,
+  value,
+  iconColor = "text-primary",
+}: MetricCardProps) {
   return (
     <div className="bg-card rounded-xl border border-border p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
       <div className={`${iconColor} text-3xl`}>{icon}</div>
@@ -47,7 +52,7 @@ export default function DashboardPage() {
 
   const { data: metrics, isLoading } = useSWR<DashboardMetrics>(
     token ? "/api/dashboard" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<DashboardMetrics> => api(url, { token })
   );
 
   return (
@@ -79,7 +84,9 @@ export default function DashboardPage() {
       {/* Filtros */}
       <div className="mb-6 overflow-x-auto pb-2">
         <div className="flex items-center gap-2 whitespace-nowrap min-w-max">
-          <span className="text-sm font-medium text-muted-foreground">Filtros ativos:</span>
+          <span className="text-sm font-medium text-muted-foreground">
+            Filtros ativos:
+          </span>
           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-foreground">
             Limpar Tudo
             <button className="ml-1.5 hover:text-destructive">
@@ -88,7 +95,12 @@ export default function DashboardPage() {
             </button>
           </span>
           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-foreground">
-            Data início: {new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" })}
+            Data início:{" "}
+            {new Date().toLocaleDateString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
             <button className="ml-1.5 hover:text-destructive">
               <span className="sr-only">Remover filtro</span>
               &times;
@@ -145,7 +157,9 @@ export default function DashboardPage() {
           <MetricCard
             icon={<Building2 className="h-8 w-8" />}
             label="Depósito"
-            value={formatCurrency(parseFloat(String(metrics?.total_depositos || 0)))}
+            value={formatCurrency(
+              parseFloat(String(metrics?.total_depositos || 0))
+            )}
             iconColor="text-primary"
           />
           <MetricCard
@@ -163,7 +177,9 @@ export default function DashboardPage() {
           <MetricCard
             icon={<Coins className="h-8 w-8" />}
             label="REV + CPA"
-            value={formatCurrency(parseFloat(String(metrics?.total_rev_cpa || 0)))}
+            value={formatCurrency(
+              parseFloat(String(metrics?.total_rev_cpa || 0))
+            )}
             iconColor="text-secondary"
           />
         </div>

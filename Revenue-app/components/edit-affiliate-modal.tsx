@@ -31,7 +31,10 @@ export default function EditAffiliateModal({
 
   // Houses
   const [houseSettings, setHouseSettings] = useState<
-    Record<number, { isActive: boolean; cpaAgreement: string; customLink: string }>
+    Record<
+      number,
+      { isActive: boolean; cpaAgreement: string; customLink: string }
+    >
   >({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,13 +43,13 @@ export default function EditAffiliateModal({
   // Fetch houses
   const { data: houses } = useSWR<BettingHouse[]>(
     token ? "/api/houses" : null,
-    (url: string) => api(url, { token })
+    (url: string) => api<BettingHouse[]>(url, { token })
   );
 
   // Fetch user details with houses
   const { data: userDetails } = useSWR<UserWithHouses>(
     token && user.id ? `/api/users/${user.id}` : null,
-    (url: string) => api(url, { token })
+    (url: string) => api<UserWithHouses>(url, { token })
   );
 
   // Initialize house settings when data loads
@@ -58,7 +61,9 @@ export default function EditAffiliateModal({
       > = {};
 
       houses.forEach((house) => {
-        const userHouse = userDetails.houses?.find((h) => h.house_id === house.id);
+        const userHouse = userDetails.houses?.find(
+          (h) => h.house_id === house.id
+        );
         settings[house.id] = {
           isActive: userHouse?.is_active || false,
           cpaAgreement: String(userHouse?.cpa_agreement || 0),
@@ -115,12 +120,14 @@ export default function EditAffiliateModal({
       });
 
       // Update houses
-      const housesData = Object.entries(houseSettings).map(([houseId, settings]) => ({
-        house_id: parseInt(houseId),
-        cpa_agreement: parseFloat(settings.cpaAgreement) || 0,
-        custom_link: settings.customLink || null,
-        is_active: settings.isActive,
-      }));
+      const housesData = Object.entries(houseSettings).map(
+        ([houseId, settings]) => ({
+          house_id: parseInt(houseId),
+          cpa_agreement: parseFloat(settings.cpaAgreement) || 0,
+          custom_link: settings.customLink || null,
+          is_active: settings.isActive,
+        })
+      );
 
       await api(`/api/users/${user.id}/houses`, {
         method: "PUT",
@@ -132,7 +139,9 @@ export default function EditAffiliateModal({
       mutate(`/api/users/${user.id}`);
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro ao salvar alterações");
+      setError(
+        err instanceof Error ? err.message : "Erro ao salvar alterações"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -147,7 +156,9 @@ export default function EditAffiliateModal({
       <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl shadow-xl animate-fadeIn">
         <div className="sticky top-0 bg-card flex items-center justify-between p-4 border-b border-border z-10">
           <div>
-            <h2 className="text-lg font-semibold text-foreground">Editando Afiliado</h2>
+            <h2 className="text-lg font-semibold text-foreground">
+              Editando Afiliado
+            </h2>
             <p className="text-sm text-primary">{user.email}</p>
           </div>
           <button
@@ -281,7 +292,11 @@ export default function EditAffiliateModal({
                         min="0"
                         value={houseSettings[house.id]?.cpaAgreement || "0"}
                         onChange={(e) =>
-                          handleHouseChange(house.id, "cpaAgreement", e.target.value)
+                          handleHouseChange(
+                            house.id,
+                            "cpaAgreement",
+                            e.target.value
+                          )
                         }
                         disabled={!houseSettings[house.id]?.isActive}
                         className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:bg-muted"
@@ -295,7 +310,11 @@ export default function EditAffiliateModal({
                         type="url"
                         value={houseSettings[house.id]?.customLink || ""}
                         onChange={(e) =>
-                          handleHouseChange(house.id, "customLink", e.target.value)
+                          handleHouseChange(
+                            house.id,
+                            "customLink",
+                            e.target.value
+                          )
                         }
                         disabled={!houseSettings[house.id]?.isActive}
                         placeholder="Cole o link de trackeamento aqui..."

@@ -23,7 +23,7 @@ export default function NewCpaModal({ isOpen, onClose }: NewCpaModalProps) {
 
   const { data: houses } = useSWR<BettingHouse[]>(
     token ? "/api/houses" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<BettingHouse[]> => api(url, { token })
   );
 
   useEffect(() => {

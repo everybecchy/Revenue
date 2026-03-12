@@ -1,7 +1,6 @@
 "use client";
 
 import { AuthProvider, useAuth } from "@/lib/auth-context";
-import { ThemeProvider } from "@/lib/theme-context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
@@ -58,10 +57,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <DashboardLayoutContent>{children}</DashboardLayoutContent>
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </AuthProvider>
   );
 }

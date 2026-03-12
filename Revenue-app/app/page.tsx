@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { AuthProvider } from "@/lib/auth-context";
-import { ThemeProvider, useTheme } from "@/lib/theme-context";
+import { useTheme } from "@/lib/theme-context";
 import { Eye, EyeOff, Loader2, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 
@@ -15,7 +15,7 @@ function LoginForm() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, user, isLoading } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, mounted } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -58,13 +58,15 @@ function LoginForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4">
       {/* Theme Toggle */}
-      <button
-        onClick={toggleTheme}
-        className="fixed top-4 right-4 p-3 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-        aria-label={theme === "dark" ? "Modo Claro" : "Modo Escuro"}
-      >
-        {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-      </button>
+      {mounted && (
+        <button
+          onClick={toggleTheme}
+          className="fixed top-4 right-4 p-3 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          aria-label={theme === "dark" ? "Modo Claro" : "Modo Escuro"}
+        >
+          {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        </button>
+      )}
 
       <div className="w-full max-w-md">
         <div className="bg-card rounded-2xl shadow-xl border border-border p-6 sm:p-8">
@@ -163,10 +165,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <LoginForm />
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <LoginForm />
+    </AuthProvider>
   );
 }

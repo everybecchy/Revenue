@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  
+  /* Cores base do tema - Rosa claro e Azul Tiffany */
+  --color-primary: #5ECFCF;
+  --color-primary-light: #7DDEDE;
+  --color-primary-dark: #4BB8B8;
+  
+  --color-secondary: #F8A5C2;
+  --color-secondary-light: #FACDD8;
+  --color-secondary-dark: #F48FB1;
+  
+  --color-accent: #A8E6CF;
+  
+  /* Design tokens */
+  --color-background: #F8FAFC;
+  --color-foreground: #1E293B;
+  
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1E293B;
+  
+  --color-muted: #F1F5F9;
+  --color-muted-foreground: #64748B;
+  
+  --color-border: #E2E8F0;
+  --color-input: #E2E8F0;
+  
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+  
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-foreground);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* PWA - Safe areas para iOS */
+@supports (padding: max(0px)) {
+  .safe-top { padding-top: max(1rem, env(safe-area-inset-top)); }
+  .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .safe-left { padding-left: max(1rem, env(safe-area-inset-left)); }
+  .safe-right { padding-right: max(1rem, env(safe-area-inset-right)); }
+}

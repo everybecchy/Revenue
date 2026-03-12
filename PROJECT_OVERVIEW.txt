@@ -1,0 +1,316 @@
+```
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║                    🎯 REVENUE PANEL - CPA DASHBOARD                    ║
+║                   Painel de Gerenciamento de Afiliados                  ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 📊 VISÃO GERAL DO PROJETO                                               │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Revenue Panel é um sistema completo de gerenciamento de afiliados e CPA 
+para casas de apostas, com:
+
+  ✅ Frontend Modern (Next.js + React)
+  ✅ Backend Robusto (Node.js + Express)
+  ✅ Banco de Dados (PostgreSQL)
+  ✅ Progressive Web App (PWA)
+  ✅ Suporte Mobile (Responsivo)
+  ✅ Design Premium (Tiffany + Rosa)
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 🏗️  ARQUITETURA                                                         │
+└──────────────────────────────────────────────────────────────────────────┘
+
+                        ┌─────────────────────┐
+                        │   NAVEGADOR/APP     │
+                        │   (Next.js PWA)     │
+                        │  http://localhost   │
+                        │        :3000        │
+                        └──────────┬──────────┘
+                                   │
+                    ┌──────────────┼──────────────┐
+                    │              │              │
+                    ▼              ▼              ▼
+            ┌──────────────┐ ┌──────────┐ ┌──────────┐
+            │  Cache (SW)  │ │ Cookies  │ │  LocalS. │
+            │  Offline     │ │   JWT    │ │  Dados   │
+            └──────────────┘ └──────────┘ └──────────┘
+                    │              │              │
+                    └──────────────┼──────────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │   Express API       │
+                        │ http://localhost    │
+                        │       :3001         │
+                        └──────────┬──────────┘
+                                   │
+                ┌──────────────────┼──────────────────┐
+                │                  │                  │
+                ▼                  ▼                  ▼
+        ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+        │  Auth Route  │   │ Users Route  │   │ Houses Route │
+        │  (JWT, bcrypt)   │ (CRUD)       │   │  (CRUD)      │
+        └──────────────┘   └──────────────┘   └──────────────┘
+                │                  │                  │
+                └──────────────────┼──────────────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │   PostgreSQL DB     │
+                        │   revenue_db        │
+                        └─────────────────────┘
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 📁 ESTRUTURA DE PASTAS                                                  │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Revenue/
+├── 📄 README.md                     ← Leia primeiro!
+├── 📄 TECH_DOCS.md                  ← Documentação técnica
+├── 📄 PWA_INSTALL_GUIDE.md          ← Como instalar no mobile
+├── 📄 TROUBLESHOOTING.md            ← Soluções de problemas
+├── 📄 IMPLEMENTACAO_CHECKLIST.sh    ← Checklist de implementação
+├── 📄 .gitignore
+├── 📄 setup.sh                      ← Script de setup automático
+│
+├── 📂 scripts/
+│   ├── 001-create-tables.sql        ← Criar tabelas
+│   ├── 002-seed-admin.sql           ← Seed do admin
+│   └── seed-admin.js                ← Script Node seed
+│
+├── 📂 Revenue-node/ (Backend)
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── database.js
+│   │   ├── middleware/
+│   │   │   └── auth.js
+│   │   ├── routes/
+│   │   │   ├── auth.js
+│   │   │   ├── users.js
+│   │   │   ├── houses.js
+│   │   │   ├── cpa.js
+│   │   │   ├── withdrawals.js
+│   │   │   └── dashboard.js
+│   │   └── index.js
+│   ├── package.json
+│   ├── .env                         ← Copie .env.example e edite
+│   └── .env.example
+│
+└── 📂 Revenue-app/ (Frontend)
+    ├── app/
+    │   ├── page.tsx                 ← Página de Login
+    │   ├── layout.tsx               ← Root Layout + PWA
+    │   ├── globals.css              ← Estilos globais
+    │   └── dashboard/
+    │       ├── layout.tsx           ← Dashboard Layout
+    │       ├── page.tsx             ← Home do Dashboard
+    │       ├── usuarios/            ← Gerenciar usuários
+    │       ├── casas/               ← Ver casas do afiliado
+    │       ├── saques/              ← Solicitar saques
+    │       ├── relatorios/          ← Relatórios
+    │       └── admin/casas/         ← Admin: cadastrar casas
+    ├── components/
+    │   ├── sidebar.tsx
+    │   ├── mobile-nav.tsx
+    │   ├── header.tsx
+    │   ├── edit-affiliate-modal.tsx
+    │   ├── new-cpa-modal.tsx
+    │   └── switch-tab.jsx
+    ├── lib/
+    │   ├── auth-context.tsx         ← Contexto de autenticação
+    │   ├── api.ts                   ← Client HTTP
+    │   └── utils.ts                 ← Utilidades
+    ├── public/
+    │   ├── logo.jpg                 ← Logo Revenue
+    │   ├── icon-192.png             ← Ícone PWA
+    │   ├── manifest.json            ← Manifest PWA
+    │   ├── sw.js                    ← Service Worker
+    │   └── offline.html             ← Página offline
+    ├── package.json
+    ├── next.config.js
+    ├── tailwind.config.ts
+    ├── .env.local                   ← Copie .env.example e edite
+    └── .env.example
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 🎨 DESIGN SYSTEM                                                        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+CORES PRIMÁRIAS:
+  🔵 Tiffany Blue    #06b6d4  → Botões, borders, primary actions
+  🌸 Rosa Claro      #f472b6  → Accents, secondary elements
+  🏳️ Light Pink      #fbcfe8  → Backgrounds, subtle fills
+
+CORES NEUTRAS:
+  ⚪ Branco          #ffffff  → Backgrounds principais
+  🩶 Cinza Light    #f8fafc  → Background secundário
+  🩶 Cinza Dark     #0f172a  → Texto principal
+
+TIPOGRAFIA:
+  Font: Inter (Google Fonts)
+  Heading: bold, sans-serif
+  Body: regular, sans-serif
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 🔐 SEGURANÇA                                                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+✅ Senhas com bcrypt (10 rounds)
+✅ JWT para autenticação
+✅ HTTP-only cookies
+✅ CORS configurado
+✅ Validação de entrada
+✅ Proteção de rotas (admin-only)
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 📱 RECURSOS MOBILE                                                      │
+└──────────────────────────────────────────────────────────────────────────┘
+
+BOTTOM NAVIGATION (Mobile):
+  ┌─────────────────────────────────────┐
+  │  🏠       📋      ➕      💵      ☰  │
+  │ Home   Relat.   Novo CPA  Saques Menu│
+  └─────────────────────────────────────┘
+
+SIDEBAR (Mobile):
+  Abre de cima para baixo como drawer
+  Mostra apenas ícones quando fechado
+  Menu completo quando aberto
+
+PWA INSTALL:
+  Android: Chrome → Menu → "Instalar app"
+  iOS: Safari → Compartilhar → "Adicionar à Tela"
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 📋 CREDENCIAIS PADRÃO                                                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Email: admin@bravopanel.com
+Senha: Mudar123
+
+⚠️  IMPORTANTE: Altere a senha após o primeiro login em produção!
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 🚀 COMEÇAR                                                              │
+└──────────────────────────────────────────────────────────────────────────┘
+
+1. SETUP BANCO DE DADOS:
+   $ createdb revenue_db
+   $ psql -U postgres -d revenue_db -f scripts/001-create-tables.sql
+   $ psql -U postgres -d revenue_db -f scripts/002-seed-admin.sql
+
+2. CONFIGURAR VARIÁVEIS:
+   $ cd Revenue-node && cp .env.example .env
+   $ cd ../Revenue-app && cp .env.example .env.local
+
+3. EDITAR ARQUIVOS .env:
+   Revenue-node/.env      → Credenciais do banco
+   Revenue-app/.env.local → URL da API
+
+4. INSTALAR DEPENDÊNCIAS:
+   $ cd Revenue-node && npm install
+   $ cd ../Revenue-app && npm install
+
+5. INICIAR SERVIDORES:
+   Terminal 1: cd Revenue-node && npm start
+   Terminal 2: cd Revenue-app && npm run dev
+
+6. ACESSAR APLICAÇÃO:
+   🔗 http://localhost:3000
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 📊 PÁGINAS E FUNCIONALIDADES                                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+LOGIN
+  └─ Tela de autenticação
+     Email + Senha
+     JWT gerado e armazenado
+
+DASHBOARD (Home)
+  └─ Cards com métricas principais
+     Filtros por período e casa
+     Gráficos de receita
+
+USUÁRIOS (Admin Only)
+  └─ Listar afiliados
+     Criar novo afiliado
+     Editar email/nome/role
+     Deletar usuário
+
+CASAS (Admin Only)
+  └─ Cadastrar casas de apostas
+     Definir % CPA
+     Adicionar link de afiliado
+     Ativar/desativar
+
+CPA RECORDS
+  └─ Registrar novo CPA (FAB Button)
+     Editar dados de afiliado
+     Ver métricas por casa
+
+SAQUES
+  └─ Solicitar saque
+     Admin aprova/rejeita
+     Histórico de saques
+
+RELATÓRIOS
+  └─ Filtrar por período
+     Exportar dados
+     Gráficos e estatísticas
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 🧪 TECNOLOGIAS                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+FRONTEND:
+  • Next.js 15+
+  • React 19+
+  • TypeScript
+  • TailwindCSS 4
+  • SWR (Data fetching)
+  • Lucide React (Icons)
+
+BACKEND:
+  • Node.js 22+
+  • Express.js
+  • PostgreSQL 12+
+  • bcryptjs (Password hashing)
+  • jsonwebtoken (JWT)
+  • CORS
+
+TOOLS:
+  • Git & GitHub
+  • npm / yarn
+  • VSCode
+
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 📞 DOCUMENTAÇÃO                                                         │
+└──────────────────────────────────────────────────────────────────────────┘
+
+📄 README.md              → Guia geral de setup
+📄 TECH_DOCS.md           → Documentação técnica detalhada
+📄 PWA_INSTALL_GUIDE.md   → Como instalar no celular
+📄 TROUBLESHOOTING.md     → Soluções de problemas
+📄 IMPLEMENTACAO_CHECKLIST.sh → Checklist de implementação
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║                     ✨ PROJETO PRONTO PARA DEPLOY!                      ║
+║                                                                          ║
+║        Desenvolvido com ❤️ para Revenue Panel - Março 2026              ║
+╚══════════════════════════════════════════════════════════════════════════╝
+```

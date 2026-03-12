@@ -18,7 +18,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
-import { useTheme } from "@/lib/theme-context";
+import { useTheme } from "@/components/theme-provider";
 
 interface NavItemProps {
   href: string;

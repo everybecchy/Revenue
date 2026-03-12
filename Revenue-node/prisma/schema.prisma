@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
+  id Int @id @default(autoincrement())
   email        String   @unique
   passwordHash String   @map("password_hash")
   name         String?
@@ -31,13 +31,13 @@ model User {
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
+  id        Int      @id @default(autoincrement())
+  userId    Int?     @map("user_id")
   token     String   @unique
   expiresAt DateTime @map("expires_at")
   createdAt DateTime @default(now()) @map("created_at")
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }

@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/auth-context";
-import { AuthProvider } from "@/lib/auth-context";
-import { useTheme } from "@/lib/theme-context";
-import { Eye, EyeOff, Loader2, Sun, Moon } from "lucide-react";
+import { useAuth, AuthProvider } from "@/lib/auth-context";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import Image from "next/image";
 
 function LoginForm() {
@@ -14,8 +12,8 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { login, user, isLoading } = useAuth();
-  const { theme, toggleTheme, mounted } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -39,15 +37,7 @@ function LoginForm() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (user) {
+  if (isLoading || user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -57,20 +47,8 @@ function LoginForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4">
-      {/* Theme Toggle */}
-      {mounted && (
-        <button
-          onClick={toggleTheme}
-          className="fixed top-4 right-4 p-3 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          aria-label={theme === "dark" ? "Modo Claro" : "Modo Escuro"}
-        >
-          {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </button>
-      )}
-
       <div className="w-full max-w-md">
         <div className="bg-card rounded-2xl shadow-xl border border-border p-6 sm:p-8">
-          {/* Logo - Grande e bem visível */}
           <div className="flex justify-center mb-8">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo%20refinado%20BravoPanel%20Mar%2012%202026-ECztNMkP4MRp9EWbVxs4Fgwj4TJJTt.png"
@@ -85,6 +63,7 @@ function LoginForm() {
           <h1 className="text-xl sm:text-2xl font-bold text-center text-foreground mb-2">
             Bem-vindo de volta
           </h1>
+
           <p className="text-sm text-muted-foreground text-center mb-6">
             Entre com suas credenciais para acessar o painel
           </p>
@@ -123,7 +102,7 @@ function LoginForm() {
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                 >

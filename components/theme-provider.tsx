@@ -14,6 +14,8 @@ export function ThemeProvider({
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      storageKey="revenue-theme"
+      forcedTheme={undefined}
     >
       {children}
     </NextThemesProvider>

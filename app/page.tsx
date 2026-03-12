@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { AuthProvider } from "@/lib/auth-context";
-import { ThemeProvider, useTheme } from "@/lib/theme-context";
+import { useTheme } from "@/lib/theme-context";
 import { Eye, EyeOff, Loader2, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 
@@ -163,10 +163,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <LoginForm />
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <LoginForm />
+    </AuthProvider>
   );
 }

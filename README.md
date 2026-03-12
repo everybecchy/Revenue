@@ -2,7 +2,7 @@
 
 Um painel administrativo moderno para gerenciamento de afiliados e CPA de casas de apostas, com arquitetura separada Frontend/Backend, PWA, e suporte mobile.
 
-## ✨ Features
+## ✨ Features adjustes
 
 - ✅ **Autenticação segura**: Login com email/senha + JWT
 - ✅ **Admin Control**: Apenas admin pode criar usuários

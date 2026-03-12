@@ -49,8 +49,6 @@ export default function UsuariosPage() {
         },
       });
 
-      console.log("[v0] User created successfully:", response);
-
       mutate("/api/users");
       setNewEmail("");
       setNewName("");
@@ -58,7 +56,6 @@ export default function UsuariosPage() {
       setNewPassword("");
       setError("");
     } catch (err) {
-      console.log("[v0] Error creating user:", err);
       setError(err instanceof Error ? err.message : "Erro ao criar usuário");
     } finally {
       setIsSubmitting(false);

@@ -14,7 +14,7 @@
   
   --color-accent: #A8E6CF;
   
-  /* Design tokens */
+  /* Design tokens - Tema Claro (padrão) */
   --color-background: #F8FAFC;
   --color-foreground: #1E293B;
   
@@ -34,6 +34,29 @@
   --color-warning: #F59E0B;
   
   --radius: 0.5rem;
+}
+
+/* Tema Escuro */
+.dark {
+  --color-background: #0F172A;
+  --color-foreground: #F1F5F9;
+  
+  --color-card: #1E293B;
+  --color-card-foreground: #F1F5F9;
+  
+  --color-muted: #334155;
+  --color-muted-foreground: #94A3B8;
+  
+  --color-border: #334155;
+  --color-input: #334155;
+  
+  --color-primary: #5ECFCF;
+  --color-primary-light: #7DDEDE;
+  --color-primary-dark: #4BB8B8;
+  
+  --color-secondary: #F8A5C2;
+  --color-secondary-light: #FACDD8;
+  --color-secondary-dark: #F48FB1;
 }
 
 * {

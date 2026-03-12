@@ -59,10 +59,9 @@ export default function AdminCasasPage() {
             affiliate_link: affiliateLink || null,
           },
         });
-        console.log("[v0] House updated successfully");
       } else {
         // Create
-        const response = await api("/api/houses", {
+        await api("/api/houses", {
           method: "POST",
           token,
           body: {
@@ -71,13 +70,11 @@ export default function AdminCasasPage() {
             affiliate_link: affiliateLink || null,
           },
         });
-        console.log("[v0] House created successfully:", response);
       }
 
       mutate("/api/houses");
       resetForm();
     } catch (err) {
-      console.log("[v0] Error saving house:", err);
       setError(err instanceof Error ? err.message : "Erro ao salvar casa");
     } finally {
       setIsSubmitting(false);

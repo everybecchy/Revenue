@@ -13,8 +13,8 @@ model User {
   passwordHash String   @map("password_hash")
   name         String?
   instagram    String?
-  role         Role     @default(affiliate)
-  status       Status   @default(active)
+  role         String   @default("affiliate")
+  status       String   @default("active")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
@@ -45,7 +45,7 @@ model BettingHouse {
   cpaPercentage  Decimal  @default(0) @map("cpa_percentage") @db.Decimal(5, 2)
   affiliateLink  String?  @map("affiliate_link")
   logoUrl        String?  @map("logo_url")
-  status         Status   @default(active)
+  status         String   @default("active")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
 
@@ -97,7 +97,7 @@ model CpaRecord {
   cpaValue     Decimal   @map("cpa_value") @db.Decimal(12, 2)
   depositValue Decimal   @default(0) @map("deposit_value") @db.Decimal(12, 2)
   notes        String?
-  status       CpaStatus @default(pending)
+  status       String    @default("pending")
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
@@ -112,8 +112,8 @@ model Withdrawal {
   userId      Int?             @map("user_id")
   amount      Decimal          @db.Decimal(12, 2)
   pixKey      String?          @map("pix_key")
-  pixType     PixType?         @map("pix_type")
-  status      WithdrawalStatus @default(pending)
+  pixType     String?          @map("pix_type")
+  status      String           @default("pending")
   notes       String?
   processedAt DateTime?        @map("processed_at")
   createdAt   DateTime         @default(now()) @map("created_at")
@@ -122,37 +122,4 @@ model Withdrawal {
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("withdrawals")
-}
-
-enum Role {
-  admin
-  affiliate
-}
-
-enum Status {
-  active
-  inactive
-  blocked
-}
-
-enum CpaStatus {
-  pending
-  approved
-  rejected
-  paid
-}
-
-enum WithdrawalStatus {
-  pending
-  approved
-  rejected
-  paid
-}
-
-enum PixType {
-  cpf
-  cnpj
-  email
-  phone
-  random
 }

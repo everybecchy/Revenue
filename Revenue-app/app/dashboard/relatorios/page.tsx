@@ -25,7 +25,7 @@ export default function RelatoriosPage() {
 
   const { data: cpas, isLoading } = useSWR<CpaRecord[]>(
     token ? "/api/cpa" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<CpaRecord[]> => api(url, { token })
   );
 
   const getStatusBadge = (status: string) => {

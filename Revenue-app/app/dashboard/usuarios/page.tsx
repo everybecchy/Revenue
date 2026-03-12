@@ -4,15 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { api, User } from "@/lib/api";
 import useSWR, { mutate } from "swr";
-import {
-  Search,
-  Plus,
-  Edit,
-  Trash2,
-  Loader2,
-  Eye,
-  EyeOff,
-} from "lucide-react";
+import { Search, Plus, Edit, Trash2, Loader2, Eye, EyeOff } from "lucide-react";
 import EditAffiliateModal from "@/components/edit-affiliate-modal";
 
 export default function UsuariosPage() {
@@ -32,9 +24,8 @@ export default function UsuariosPage() {
 
   const { data: users, isLoading } = useSWR<User[]>(
     token && isAdmin ? "/api/users" : null,
-    (url: string) => api(url, { token })
+    (url: string) => api<User[]>(url, { token })
   );
-
   const filteredUsers = users?.filter(
     (user) =>
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||

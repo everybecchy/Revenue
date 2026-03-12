@@ -42,7 +42,7 @@ export default function SaquesPage() {
 
   const { data: withdrawals, isLoading } = useSWR<Withdrawal[]>(
     token ? "/api/withdrawals" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<Withdrawal[]> => api(url, { token })
   );
 
   const handleNewWithdrawal = async (e: React.FormEvent) => {

@@ -4,15 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { api, BettingHouse } from "@/lib/api";
 import useSWR, { mutate } from "swr";
-import {
-  Search,
-  Plus,
-  Edit,
-  Trash2,
-  Loader2,
-  X,
-  Check,
-} from "lucide-react";
+import { Search, Plus, Edit, Trash2, Loader2, X, Check } from "lucide-react";
 
 export default function AdminCasasPage() {
   const { token, isAdmin } = useAuth();
@@ -28,7 +20,7 @@ export default function AdminCasasPage() {
 
   const { data: houses, isLoading } = useSWR<BettingHouse[]>(
     token && isAdmin ? "/api/houses" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<BettingHouse[]> => api(url, { token })
   );
 
   const filteredHouses = houses?.filter((house) =>
@@ -133,7 +125,9 @@ export default function AdminCasasPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-end mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Gerenciar Casas de Apostas</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            Gerenciar Casas de Apostas
+          </h1>
           <p className="text-muted-foreground">
             Cadastre e gerencie as casas de apostas parceiras
           </p>
@@ -175,7 +169,9 @@ export default function AdminCasasPage() {
                   placeholder="0"
                   className="w-full rounded-lg border border-input bg-background px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 />
-                <span className="absolute right-3 top-2 text-muted-foreground">%</span>
+                <span className="absolute right-3 top-2 text-muted-foreground">
+                  %
+                </span>
               </div>
             </div>
             <div>
@@ -292,7 +288,9 @@ export default function AdminCasasPage() {
                       className="bg-card border-b border-border hover:bg-muted/50 transition-colors"
                     >
                       <td className="px-6 py-4">
-                        <p className="font-medium text-foreground">{house.name}</p>
+                        <p className="font-medium text-foreground">
+                          {house.name}
+                        </p>
                         {house.affiliate_link && (
                           <p className="text-xs text-muted-foreground truncate max-w-[200px]">
                             {house.affiliate_link}

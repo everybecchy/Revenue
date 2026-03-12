@@ -28,12 +28,12 @@ export default function CasasPage() {
 
   const { data: houses, isLoading } = useSWR<BettingHouse[]>(
     token ? "/api/houses" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<BettingHouse[]> => api(url, { token })
   );
-
+  
   const { data: houseReports } = useSWR<HouseByReport[]>(
     token ? "/api/dashboard/by-house" : null,
-    (url: string) => api(url, { token })
+    (url: string): Promise<HouseByReport[]> => api(url, { token })
   );
 
   const handleCopyLink = async (house: BettingHouse) => {

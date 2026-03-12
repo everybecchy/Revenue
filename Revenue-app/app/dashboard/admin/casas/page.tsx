@@ -113,7 +113,7 @@ export default function AdminCasasPage() {
   if (!isAdmin) {
     return (
       <div className="p-4 lg:p-8">
-        <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4">
+        <div className="bg-[var(--color-destructive)]/10 border border-[var(--color-destructive)]/20 text-[var(--color-destructive)] rounded-lg p-4">
           Acesso negado. Somente administradores podem acessar esta página.
         </div>
       </div>
@@ -125,24 +125,24 @@ export default function AdminCasasPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-end mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-foreground)]">
             Gerenciar Casas de Apostas
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-sm text-[var(--color-muted-foreground)]">
             Cadastre e gerencie as casas de apostas parceiras
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Form */}
-        <div className="bg-card border border-border rounded-xl p-5 shadow-sm lg:col-span-1 h-fit">
-          <h3 className="text-lg font-bold text-foreground mb-4 border-b border-border pb-2">
+        <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-4 sm:p-5 shadow-sm lg:col-span-1 h-fit">
+          <h3 className="text-base sm:text-lg font-bold text-[var(--color-foreground)] mb-4 border-b border-[var(--color-border)] pb-2">
             {editingHouse ? "Editar Casa" : "Nova Casa"}
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-foreground mb-1">
+              <label className="block text-xs font-medium text-[var(--color-foreground)] mb-1">
                 Nome da Casa *
               </label>
               <input
@@ -150,12 +150,12 @@ export default function AdminCasasPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ex: BetMGM"
-                className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full rounded-lg border border-[var(--color-input)] bg-[var(--color-background)] text-[var(--color-foreground)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-foreground mb-1">
+              <label className="block text-xs font-medium text-[var(--color-foreground)] mb-1">
                 % CPA Padrão
               </label>
               <div className="relative">
@@ -167,15 +167,15 @@ export default function AdminCasasPage() {
                   value={cpaPercentage}
                   onChange={(e) => setCpaPercentage(e.target.value)}
                   placeholder="0"
-                  className="w-full rounded-lg border border-input bg-background px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full rounded-lg border border-[var(--color-input)] bg-[var(--color-background)] text-[var(--color-foreground)] px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 />
-                <span className="absolute right-3 top-2 text-muted-foreground">
+                <span className="absolute right-3 top-2 text-[var(--color-muted-foreground)]">
                   %
                 </span>
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-foreground mb-1">
+              <label className="block text-xs font-medium text-[var(--color-foreground)] mb-1">
                 Link de Afiliado Base
               </label>
               <input
@@ -183,12 +183,12 @@ export default function AdminCasasPage() {
                 value={affiliateLink}
                 onChange={(e) => setAffiliateLink(e.target.value)}
                 placeholder="https://casa.com/ref/"
-                className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full rounded-lg border border-[var(--color-input)] bg-[var(--color-background)] text-[var(--color-foreground)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
 
             {error && (
-              <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-3 text-sm">
+              <div className="bg-[var(--color-destructive)]/10 border border-[var(--color-destructive)]/20 text-[var(--color-destructive)] rounded-lg p-3 text-sm">
                 {error}
               </div>
             )}
@@ -198,7 +198,7 @@ export default function AdminCasasPage() {
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="flex-1 px-4 py-2.5 rounded-lg border border-border text-foreground hover:bg-muted transition-colors"
+                  className="flex-1 px-4 py-2.5 rounded-lg border border-[var(--color-border)] text-[var(--color-foreground)] hover:bg-[var(--color-muted)] transition-colors"
                 >
                   Cancelar
                 </button>
@@ -206,7 +206,7 @@ export default function AdminCasasPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 bg-gradient-to-r from-primary to-secondary text-white font-medium py-2.5 px-4 rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium py-2.5 px-4 rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -230,9 +230,9 @@ export default function AdminCasasPage() {
         </div>
 
         {/* Table */}
-        <div className="bg-card border border-border rounded-xl shadow-sm lg:col-span-2 flex flex-col">
-          <div className="p-4 lg:p-6 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center bg-muted/50 gap-4 rounded-t-xl">
-            <h3 className="text-lg font-bold text-foreground">
+        <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl shadow-sm lg:col-span-2 flex flex-col overflow-hidden">
+          <div className="p-4 lg:p-6 border-b border-[var(--color-border)] flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[var(--color-muted)]/50 gap-4">
+            <h3 className="text-base sm:text-lg font-bold text-[var(--color-foreground)]">
               Casas Cadastradas
             </h3>
             <div className="relative w-full sm:w-auto">
@@ -241,26 +241,26 @@ export default function AdminCasasPage() {
                 placeholder="Buscar casa..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full sm:w-64 rounded-lg border border-input bg-background pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sm:w-64 rounded-lg border border-[var(--color-input)] bg-[var(--color-background)] text-[var(--color-foreground)] pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
-              <Search className="absolute left-3 top-2.5 text-muted-foreground h-4 w-4" />
+              <Search className="absolute left-3 top-2.5 text-[var(--color-muted-foreground)] h-4 w-4" />
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left min-w-[500px]">
-              <thead className="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border">
+            <table className="w-full text-sm text-left min-w-[400px]">
+              <thead className="text-xs text-[var(--color-muted-foreground)] uppercase bg-[var(--color-muted)]/30 border-b border-[var(--color-border)]">
                 <tr>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-4 sm:px-6 py-3">
                     Casa
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-4 sm:px-6 py-3">
                     % CPA
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-4 sm:px-6 py-3">
                     Status
                   </th>
-                  <th scope="col" className="px-6 py-3 text-right">
+                  <th scope="col" className="px-4 sm:px-6 py-3 text-right">
                     Ações
                   </th>
                 </tr>
@@ -268,15 +268,15 @@ export default function AdminCasasPage() {
               <tbody>
                 {isLoading ? (
                   <tr>
-                    <td colSpan={4} className="px-6 py-8 text-center">
-                      <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
+                    <td colSpan={4} className="px-4 sm:px-6 py-8 text-center">
+                      <Loader2 className="h-6 w-6 animate-spin mx-auto text-[var(--color-primary)]" />
                     </td>
                   </tr>
                 ) : filteredHouses?.length === 0 ? (
                   <tr>
                     <td
                       colSpan={4}
-                      className="px-6 py-8 text-center text-muted-foreground"
+                      className="px-4 sm:px-6 py-8 text-center text-[var(--color-muted-foreground)]"
                     >
                       Nenhuma casa encontrada
                     </td>
@@ -285,45 +285,45 @@ export default function AdminCasasPage() {
                   filteredHouses?.map((house) => (
                     <tr
                       key={house.id}
-                      className="bg-card border-b border-border hover:bg-muted/50 transition-colors"
+                      className="bg-[var(--color-card)] border-b border-[var(--color-border)] hover:bg-[var(--color-muted)]/50 transition-colors"
                     >
-                      <td className="px-6 py-4">
-                        <p className="font-medium text-foreground">
+                      <td className="px-4 sm:px-6 py-4">
+                        <p className="font-medium text-[var(--color-foreground)]">
                           {house.name}
                         </p>
                         {house.affiliate_link && (
-                          <p className="text-xs text-muted-foreground truncate max-w-[200px]">
+                          <p className="text-xs text-[var(--color-muted-foreground)] truncate max-w-[150px] sm:max-w-[200px]">
                             {house.affiliate_link}
                           </p>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-foreground">
+                      <td className="px-4 sm:px-6 py-4 text-[var(--color-foreground)]">
                         {house.cpa_percentage}%
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 sm:px-6 py-4">
                         <button
                           onClick={() => handleToggleStatus(house)}
                           className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium transition-colors ${
                             house.status === "active"
-                              ? "bg-success/10 text-success hover:bg-success/20"
-                              : "bg-muted text-muted-foreground hover:bg-muted/80"
+                              ? "bg-[var(--color-success)]/10 text-[var(--color-success)] hover:bg-[var(--color-success)]/20"
+                              : "bg-[var(--color-muted)] text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)]/80"
                           }`}
                         >
                           {house.status === "active" ? "Ativa" : "Inativa"}
                         </button>
                       </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                      <td className="px-4 sm:px-6 py-4 text-right">
+                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                           <button
                             onClick={() => handleEdit(house)}
-                            className="p-2 rounded-lg hover:bg-primary/10 text-primary transition-colors"
+                            className="p-2 rounded-lg hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] transition-colors"
                             title="Editar"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(house.id)}
-                            className="p-2 rounded-lg hover:bg-destructive/10 text-destructive transition-colors"
+                            className="p-2 rounded-lg hover:bg-[var(--color-destructive)]/10 text-[var(--color-destructive)] transition-colors"
                             title="Excluir"
                           >
                             <Trash2 className="h-4 w-4" />

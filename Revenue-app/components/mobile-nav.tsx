@@ -19,6 +19,7 @@ import {
   LogOut,
 } from "lucide-react";
 import NewCpaModal from "./new-cpa-modal";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function MobileNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,209 +32,164 @@ export default function MobileNav() {
     window.location.href = "/";
   };
 
+  const menuItems = [
+    { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+    { href: "/dashboard/relatorios", icon: FileText, label: "Relatórios" },
+    { href: "/dashboard/casas", icon: Building2, label: "Casas" },
+    { href: "/dashboard/saques", icon: Wallet, label: "Saques" },
+  ];
+
+  const adminItems = [
+    { href: "/dashboard/usuarios", icon: Users, label: "Usuários" },
+    { href: "/dashboard/admin/casas", icon: Shield, label: "Gerenciar Casas" },
+  ];
+
   return (
     <>
-      {/* Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border safe-bottom z-40">
-        <div className="flex items-center justify-around py-2">
+      {/* Bottom Navigation - Grid de quadradinhos */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--color-card)] border-t border-[var(--color-border)] safe-bottom z-40">
+        <div className="grid grid-cols-5 gap-1 p-2">
           {/* Menu */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className={`flex flex-col items-center gap-1 p-2 rounded-lg ${
-              isMenuOpen ? "text-primary" : "text-muted-foreground"
+            className={`flex flex-col items-center justify-center gap-1 p-2 rounded-lg min-h-[60px] ${
+              isMenuOpen ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]" : "text-[var(--color-muted-foreground)]"
             }`}
           >
-            <Menu className="h-5 w-5" />
-            <span className="text-xs">Menu</span>
+            <Menu className="h-5 w-5 shrink-0" />
+            <span className="text-[10px] leading-tight text-center">Menu</span>
           </button>
 
           {/* Home */}
           <Link
             href="/dashboard"
-            className={`flex flex-col items-center gap-1 p-2 rounded-lg ${
-              pathname === "/dashboard" ? "text-primary" : "text-muted-foreground"
+            className={`flex flex-col items-center justify-center gap-1 p-2 rounded-lg min-h-[60px] ${
+              pathname === "/dashboard" ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]" : "text-[var(--color-muted-foreground)]"
             }`}
           >
-            <Home className="h-5 w-5" />
-            <span className="text-xs">Home</span>
+            <Home className="h-5 w-5 shrink-0" />
+            <span className="text-[10px] leading-tight text-center">Home</span>
           </Link>
 
           {/* Novo CPA - Botão Central */}
           <button
             onClick={() => setIsNewCpaOpen(true)}
-            className="flex items-center justify-center w-14 h-14 -mt-6 rounded-full bg-gradient-to-r from-primary to-secondary text-white shadow-lg hover:opacity-90 transition-opacity"
+            className="flex items-center justify-center w-full h-full rounded-lg bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white shadow-lg"
           >
-            <Plus className="h-7 w-7" />
+            <Plus className="h-6 w-6" />
           </button>
 
           {/* Relatórios */}
           <Link
             href="/dashboard/relatorios"
-            className={`flex flex-col items-center gap-1 p-2 rounded-lg ${
-              pathname === "/dashboard/relatorios" ? "text-primary" : "text-muted-foreground"
+            className={`flex flex-col items-center justify-center gap-1 p-2 rounded-lg min-h-[60px] ${
+              pathname === "/dashboard/relatorios" ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]" : "text-[var(--color-muted-foreground)]"
             }`}
           >
-            <FileText className="h-5 w-5" />
-            <span className="text-xs">Relatórios</span>
+            <FileText className="h-5 w-5 shrink-0" />
+            <span className="text-[10px] leading-tight text-center">Relatórios</span>
           </Link>
 
           {/* Saques */}
           <Link
             href="/dashboard/saques"
-            className={`flex flex-col items-center gap-1 p-2 rounded-lg ${
-              pathname === "/dashboard/saques" ? "text-primary" : "text-muted-foreground"
+            className={`flex flex-col items-center justify-center gap-1 p-2 rounded-lg min-h-[60px] ${
+              pathname === "/dashboard/saques" ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]" : "text-[var(--color-muted-foreground)]"
             }`}
           >
-            <Wallet className="h-5 w-5" />
-            <span className="text-xs">Saques</span>
+            <Wallet className="h-5 w-5 shrink-0" />
+            <span className="text-[10px] leading-tight text-center">Saques</span>
           </Link>
         </div>
       </nav>
 
-      {/* Mobile Menu Drawer - Abre de cima para baixo */}
+      {/* Mobile Menu Drawer */}
       {isMenuOpen && (
         <>
           {/* Overlay */}
           <div
-            className="lg:hidden fixed inset-0 bg-foreground/50 z-50"
+            className="lg:hidden fixed inset-0 bg-black/50 z-50"
             onClick={() => setIsMenuOpen(false)}
           />
           
           {/* Menu Content */}
-          <div className="lg:hidden fixed inset-x-0 top-0 bg-card z-50 animate-slideDown safe-top rounded-b-2xl shadow-xl max-h-[80vh] overflow-y-auto">
-            <div className="p-4 border-b border-border flex items-center justify-between">
+          <div className="lg:hidden fixed inset-x-0 top-0 bg-[var(--color-card)] z-50 animate-slideDown safe-top rounded-b-2xl shadow-xl max-h-[85vh] overflow-y-auto">
+            <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo%20refinado%20BravoPanel%20Mar%2012%202026-ECztNMkP4MRp9EWbVxs4Fgwj4TJJTt.png"
-                alt="Revenui"
-                width={120}
-                height={40}
-                className="h-8 w-auto"
+                alt="Revenue"
+                width={160}
+                height={50}
+                className="h-12 w-auto"
+                priority
               />
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="p-2 rounded-lg hover:bg-muted text-muted-foreground"
-              >
-                <X className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 rounded-lg hover:bg-[var(--color-muted)] text-[var(--color-muted-foreground)]"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
-            <nav className="p-4 space-y-6">
+            <div className="p-4 space-y-4">
               {/* User Info */}
-              <div className="bg-muted rounded-lg p-4">
-                <p className="font-medium text-foreground">{user?.name || user?.email}</p>
-                <p className="text-sm text-muted-foreground capitalize">{user?.role}</p>
+              <div className="bg-[var(--color-muted)] rounded-xl p-4">
+                <p className="font-medium text-[var(--color-foreground)]">{user?.name || user?.email}</p>
+                <p className="text-sm text-[var(--color-muted-foreground)] capitalize">{user?.role}</p>
               </div>
 
-              {/* Menu Principal */}
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Menu Principal
-                </p>
-                <div className="space-y-1">
+              {/* Menu Items em Grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {menuItems.map((item) => (
                   <Link
-                    href="/dashboard"
+                    key={item.href}
+                    href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-                      pathname === "/dashboard"
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground hover:bg-muted"
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-colors min-h-[100px] ${
+                      pathname === item.href
+                        ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-2 border-[var(--color-primary)]"
+                        : "bg-[var(--color-muted)] text-[var(--color-foreground)] hover:bg-[var(--color-border)]"
                     }`}
                   >
-                    <LayoutDashboard className="h-5 w-5" />
-                    <span>Overview</span>
+                    <item.icon className="h-6 w-6" />
+                    <span className="text-sm font-medium text-center">{item.label}</span>
                   </Link>
-                </div>
+                ))}
               </div>
 
-              {/* Relatórios */}
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Relatórios
-                </p>
-                <div className="space-y-1">
-                  <Link
-                    href="/dashboard/relatorios"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-                      pathname === "/dashboard/relatorios"
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <FileText className="h-5 w-5" />
-                    <span>Relatórios</span>
-                  </Link>
-                  <Link
-                    href="/dashboard/casas"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-                      pathname === "/dashboard/casas"
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Building2 className="h-5 w-5" />
-                    <span>Detalhados por Casa</span>
-                  </Link>
-                  <Link
-                    href="/dashboard/saques"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-                      pathname === "/dashboard/saques"
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Wallet className="h-5 w-5" />
-                    <span>Saques</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Administração */}
+              {/* Admin Items */}
               {isAdmin && (
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                    Administração
-                  </p>
-                  <div className="space-y-1">
+                <div className="grid grid-cols-2 gap-3">
+                  {adminItems.map((item) => (
                     <Link
-                      href="/dashboard/usuarios"
+                      key={item.href}
+                      href={item.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-                        pathname === "/dashboard/usuarios"
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground hover:bg-muted"
+                      className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-colors min-h-[100px] ${
+                        pathname === item.href
+                          ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-2 border-[var(--color-primary)]"
+                          : "bg-[var(--color-muted)] text-[var(--color-foreground)] hover:bg-[var(--color-border)]"
                       }`}
                     >
-                      <Users className="h-5 w-5" />
-                      <span>Usuários</span>
+                      <item.icon className="h-6 w-6" />
+                      <span className="text-sm font-medium text-center">{item.label}</span>
                     </Link>
-                    <Link
-                      href="/dashboard/admin/casas"
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-                        pathname === "/dashboard/admin/casas"
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground hover:bg-muted"
-                      }`}
-                    >
-                      <Shield className="h-5 w-5" />
-                      <span>Gerenciar Casas</span>
-                    </Link>
-                  </div>
+                  ))}
                 </div>
               )}
 
               {/* Logout */}
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-3 w-full px-3 py-3 rounded-lg text-destructive hover:bg-destructive/10 transition-colors"
+                className="flex items-center justify-center gap-3 w-full p-4 rounded-xl bg-[var(--color-destructive)]/10 text-[var(--color-destructive)] hover:bg-[var(--color-destructive)]/20 transition-colors"
               >
                 <LogOut className="h-5 w-5" />
-                <span>Sair</span>
+                <span className="font-medium">Sair</span>
               </button>
-            </nav>
+            </div>
           </div>
         </>
       )}

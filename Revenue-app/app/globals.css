@@ -14,7 +14,11 @@
   
   --color-accent: #A8E6CF;
   
-  /* Design tokens */
+  --radius: 0.5rem;
+}
+
+/* Tema Claro */
+:root {
   --color-background: #F8FAFC;
   --color-foreground: #1E293B;
   
@@ -32,8 +36,27 @@
   
   --color-success: #22C55E;
   --color-warning: #F59E0B;
+}
+
+/* Tema Escuro */
+.dark {
+  --color-background: #0F172A;
+  --color-foreground: #F1F5F9;
   
-  --radius: 0.5rem;
+  --color-card: #1E293B;
+  --color-card-foreground: #F1F5F9;
+  
+  --color-muted: #334155;
+  --color-muted-foreground: #94A3B8;
+  
+  --color-border: #334155;
+  --color-input: #334155;
+  
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+  
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
 }
 
 * {

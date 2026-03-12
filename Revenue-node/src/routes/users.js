@@ -42,7 +42,7 @@ router.get('/', authenticate, isAdmin, async (req, res) => {
 // Buscar usuario por ID (apenas admin)
 router.get('/:id', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     
     const user = await prisma.user.findUnique({
       where: { id },
@@ -150,7 +150,7 @@ router.post('/', authenticate, isAdmin, async (req, res) => {
 // Atualizar usuario (apenas admin)
 router.put('/:id', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     const { email, password, name, instagram, status } = req.body;
 
     // Verificar se usuario existe
@@ -200,7 +200,7 @@ router.put('/:id', authenticate, isAdmin, async (req, res) => {
 // Deletar usuario (apenas admin)
 router.delete('/:id', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     
     const user = await prisma.user.findUnique({ where: { id } });
     
@@ -224,7 +224,7 @@ router.delete('/:id', authenticate, isAdmin, async (req, res) => {
 // Atualizar metricas do afiliado (apenas admin)
 router.put('/:id/metrics', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     const { registros, ftd, qftd, depositos, rev, cpa } = req.body;
 
     const metrics = await prisma.affiliateMetric.upsert({
@@ -258,7 +258,7 @@ router.put('/:id/metrics', authenticate, isAdmin, async (req, res) => {
 // Atualizar casas do afiliado (apenas admin)
 router.put('/:id/houses', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     const { houses } = req.body; // Array de { house_id, cpa_agreement, custom_link, is_active }
 
     // Deletar associacoes existentes

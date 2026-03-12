@@ -131,7 +131,7 @@ export default function SaquesPage() {
         {!isAdmin && (
           <button
             onClick={() => setIsNewOpen(true)}
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-medium py-2.5 px-4 rounded-lg hover:opacity-90 transition-opacity w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-slate-800 font-medium py-2.5 px-4 rounded-lg hover:opacity-90 transition-opacity w-full sm:w-auto"
           >
             <Plus className="h-4 w-4" />
             Solicitar Saque
@@ -426,7 +426,7 @@ export default function SaquesPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 px-4 py-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-slate-800 font-medium hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>

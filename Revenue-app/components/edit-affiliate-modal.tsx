@@ -345,7 +345,7 @@ export default function EditAffiliateModal({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
+              className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-slate-800 font-medium hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>

@@ -77,7 +77,7 @@ export default function MobileNav() {
           {/* Novo CPA - Botão Central */}
           <button
             onClick={() => setIsNewCpaOpen(true)}
-            className="flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-secondary text-white shadow-lg hover:opacity-90 transition-opacity min-h-[60px]"
+            className="flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-secondary text-slate-800 shadow-lg hover:opacity-90 transition-opacity min-h-[60px]"
           >
             <Plus className="h-6 w-6" />
           </button>

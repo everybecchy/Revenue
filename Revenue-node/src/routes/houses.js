@@ -29,7 +29,7 @@ router.get('/', authenticate, async (req, res) => {
 // Buscar casa por ID
 router.get('/:id', authenticate, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     const house = await prisma.bettingHouse.findUnique({ where: { id } });
     
     if (!house) {
@@ -88,7 +88,7 @@ router.post('/', authenticate, isAdmin, async (req, res) => {
 // Atualizar casa (apenas admin)
 router.put('/:id', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     const { name, cpa_percentage, affiliate_link, logo_url, status } = req.body;
 
     const existing = await prisma.bettingHouse.findUnique({ where: { id } });
@@ -125,7 +125,7 @@ router.put('/:id', authenticate, isAdmin, async (req, res) => {
 // Deletar casa (apenas admin)
 router.delete('/:id', authenticate, isAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
     
     const existing = await prisma.bettingHouse.findUnique({ where: { id } });
     if (!existing) {

@@ -25,8 +25,6 @@ export default function EditAffiliateModal({
   const [registros, setRegistros] = useState(String(user.registros || 0));
   const [ftd, setFtd] = useState(String(user.ftd || 0));
   const [qftd, setQftd] = useState(String(user.qftd || 0));
-  const [depositos, setDepositos] = useState(String(user.depositos || 0));
-  const [rev, setRev] = useState(String(user.rev || 0));
   const [cpa, setCpa] = useState(String(user.cpa || 0));
 
   // Houses
@@ -113,8 +111,8 @@ export default function EditAffiliateModal({
           registros: parseInt(registros) || 0,
           ftd: parseInt(ftd) || 0,
           qftd: parseInt(qftd) || 0,
-          depositos: parseFloat(depositos) || 0,
-          rev: parseFloat(rev) || 0,
+          depositos: 0,
+          rev: 0,
           cpa: parseFloat(cpa) || 0,
         },
       });
@@ -214,33 +212,7 @@ export default function EditAffiliateModal({
               </div>
               <div>
                 <label className="block text-xs font-medium text-muted-foreground mb-1">
-                  Depósitos (R$)
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={depositos}
-                  onChange={(e) => setDepositos(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">
-                  REV (R$)
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={rev}
-                  onChange={(e) => setRev(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">
-                  CPA (R$)
+                  Saldo (R$)
                 </label>
                 <input
                   type="number"

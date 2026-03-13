@@ -11,7 +11,7 @@ interface UserWithHouses {
 }
 
 export default function CasasPage() {
-  const { token, user } = useAuth();
+  const { token } = useAuth();
   const [copiedId, setCopiedId] = useState<number | null>(null);
 
   const { data: houses } = useSWR<BettingHouse[]>(
@@ -19,16 +19,11 @@ export default function CasasPage() {
     (url: string): Promise<BettingHouse[]> => api(url, { token })
   );
 
-  // Busca os links personalizados do usuario
-  const { data: userDetails, isLoading, error } = useSWR<UserWithHouses>(
-    token && user?.id ? `/api/users/${user.id}` : null,
+  // Busca os links personalizados do usuario usando /api/me (acessível para o próprio usuário)
+  const { data: userDetails, isLoading } = useSWR<UserWithHouses>(
+    token ? "/api/me" : null,
     (url: string): Promise<UserWithHouses> => api(url, { token })
   );
-
-  console.log("[v0] User:", user);
-  console.log("[v0] User Details:", userDetails);
-  console.log("[v0] User Houses:", userDetails?.houses);
-  console.log("[v0] Error:", error);
 
   const handleCopyLink = async (link: string, houseId: number) => {
     await navigator.clipboard.writeText(link);

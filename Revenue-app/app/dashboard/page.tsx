@@ -7,10 +7,7 @@ import {
   Users,
   CreditCard,
   DollarSign,
-  TrendingUp,
-  Building2,
   Receipt,
-  Coins,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -82,41 +79,6 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Filtros */}
-      <div className="mb-6 overflow-x-auto pb-2">
-        <div className="flex items-center gap-2 whitespace-nowrap min-w-max">
-          <span className="text-sm font-medium text-muted-foreground">
-            Filtros ativos:
-          </span>
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-foreground">
-            Limpar Tudo
-            <button className="ml-1.5 hover:text-destructive">
-              <span className="sr-only">Remover filtro</span>
-              &times;
-            </button>
-          </span>
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-foreground">
-            Data início:{" "}
-            {new Date().toLocaleDateString("pt-BR", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
-            <button className="ml-1.5 hover:text-destructive">
-              <span className="sr-only">Remover filtro</span>
-              &times;
-            </button>
-          </span>
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-foreground">
-            Todas as casas
-            <button className="ml-1.5 hover:text-destructive">
-              <span className="sr-only">Remover filtro</span>
-              &times;
-            </button>
-          </span>
-        </div>
-      </div>
-
       {/* Metrics Grid */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -156,32 +118,10 @@ export default function DashboardPage() {
             iconColor="text-primary"
           />
           <MetricCard
-            icon={<Building2 className="h-8 w-8" />}
-            label="Depósito"
-            value={formatCurrency(
-              parseFloat(String(metrics?.total_depositos || 0))
-            )}
-            iconColor="text-primary"
-          />
-          <MetricCard
-            icon={<TrendingUp className="h-8 w-8" />}
-            label="REV"
-            value={formatCurrency(parseFloat(String(metrics?.total_rev || 0)))}
-            iconColor="text-primary"
-          />
-          <MetricCard
             icon={<DollarSign className="h-8 w-8" />}
-            label="CPA"
+            label="Saldo"
             value={formatCurrency(parseFloat(String(metrics?.total_cpa || 0)))}
             iconColor="text-primary"
-          />
-          <MetricCard
-            icon={<Coins className="h-8 w-8" />}
-            label="REV + CPA"
-            value={formatCurrency(
-              parseFloat(String(metrics?.total_rev_cpa || 0))
-            )}
-            iconColor="text-secondary"
           />
         </div>
       )}

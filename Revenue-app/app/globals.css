@@ -38,17 +38,17 @@
 
 /* Tema Escuro */
 .dark {
-  --color-background: #0F172A;
-  --color-foreground: #F1F5F9;
+  --color-background: #FFFFFF;
+  --color-foreground: #1E293B;
   
-  --color-card: #1E293B;
-  --color-card-foreground: #F1F5F9;
+  --color-card: #F8FAFC;
+  --color-card-foreground: #1E293B;
   
-  --color-muted: #334155;
-  --color-muted-foreground: #94A3B8;
+  --color-muted: #F1F5F9;
+  --color-muted-foreground: #475569;
   
-  --color-border: #475569;
-  --color-input: #475569;
+  --color-border: #E2E8F0;
+  --color-input: #E2E8F0;
   
   --color-primary: #4DB8B8;
   --color-primary-light: #5ECFCF;

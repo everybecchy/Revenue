@@ -13,7 +13,6 @@ export default function AdminCasasPage() {
 
   // Form states
   const [name, setName] = useState("");
-  const [cpaPercentage, setCpaPercentage] = useState("");
   const [affiliateLink, setAffiliateLink] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -29,7 +28,6 @@ export default function AdminCasasPage() {
 
   const resetForm = () => {
     setName("");
-    setCpaPercentage("");
     setAffiliateLink("");
     setEditingHouse(null);
     setError("");
@@ -38,7 +36,6 @@ export default function AdminCasasPage() {
   const handleEdit = (house: BettingHouse) => {
     setEditingHouse(house);
     setName(house.name);
-    setCpaPercentage(String(house.cpa_percentage || ""));
     setAffiliateLink(house.affiliate_link || "");
   };
 
@@ -55,7 +52,6 @@ export default function AdminCasasPage() {
           token,
           body: {
             name,
-            cpa_percentage: parseFloat(cpaPercentage) || 0,
             affiliate_link: affiliateLink || null,
           },
         });
@@ -66,7 +62,6 @@ export default function AdminCasasPage() {
           token,
           body: {
             name,
-            cpa_percentage: parseFloat(cpaPercentage) || 0,
             affiliate_link: affiliateLink || null,
           },
         });
@@ -156,27 +151,7 @@ export default function AdminCasasPage() {
             </div>
             <div>
               <label className="block text-xs font-medium text-foreground mb-1">
-                % CPA Padrão
-              </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  max="100"
-                  value={cpaPercentage}
-                  onChange={(e) => setCpaPercentage(e.target.value)}
-                  placeholder="0"
-                  className="w-full rounded-lg border border-input bg-background px-3 py-2.5 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <span className="absolute right-3 top-2.5 text-muted-foreground">
-                  %
-                </span>
-              </div>
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-foreground mb-1">
-                Link de Afiliado Base
+                Link de Afiliado *
               </label>
               <input
                 type="url"
@@ -268,9 +243,6 @@ export default function AdminCasasPage() {
                       <p className="font-medium text-foreground">
                         {house.name}
                       </p>
-                      <p className="text-sm text-muted-foreground">
-                        {house.cpa_percentage}% CPA
-                      </p>
                     </div>
                     <button
                       onClick={() => handleToggleStatus(house)}
@@ -318,9 +290,6 @@ export default function AdminCasasPage() {
                     Casa
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    % CPA
-                  </th>
-                  <th scope="col" className="px-6 py-3">
                     Status
                   </th>
                   <th scope="col" className="px-6 py-3 text-right">
@@ -331,14 +300,14 @@ export default function AdminCasasPage() {
               <tbody>
                 {isLoading ? (
                   <tr>
-                    <td colSpan={4} className="px-6 py-8 text-center">
+                    <td colSpan={3} className="px-6 py-8 text-center">
                       <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
                     </td>
                   </tr>
                 ) : filteredHouses?.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={4}
+                      colSpan={3}
                       className="px-6 py-8 text-center text-muted-foreground"
                     >
                       Nenhuma casa encontrada
@@ -359,9 +328,6 @@ export default function AdminCasasPage() {
                             {house.affiliate_link}
                           </p>
                         )}
-                      </td>
-                      <td className="px-6 py-4 text-foreground">
-                        {house.cpa_percentage}%
                       </td>
                       <td className="px-6 py-4">
                         <button

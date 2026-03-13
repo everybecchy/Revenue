@@ -15,7 +15,6 @@ import {
   Building2,
   Shield,
   LogOut,
-  FileText,
   Wallet,
   Sun,
   Moon,
@@ -36,7 +35,6 @@ export default function MobileNav() {
 
   const menuItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/dashboard/relatorios", icon: FileText, label: "Relatórios" },
     { href: "/dashboard/casas", icon: Building2, label: "Casas" },
     { href: "/dashboard/saques", icon: Wallet, label: "Saques" },
     ...(isAdmin
@@ -82,15 +80,15 @@ export default function MobileNav() {
             <Plus className="h-6 w-6" />
           </button>
 
-          {/* Relatórios */}
+          {/* Casas */}
           <Link
-            href="/dashboard/relatorios"
+            href="/dashboard/casas"
             className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl min-h-[60px] ${
-              pathname === "/dashboard/relatorios" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted"
+              pathname === "/dashboard/casas" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted"
             }`}
           >
-            <FileText className="h-5 w-5 shrink-0" />
-            <span className="text-[10px] font-medium leading-tight text-center">Relatórios</span>
+            <Building2 className="h-5 w-5 shrink-0" />
+            <span className="text-[10px] font-medium leading-tight text-center">Casas</span>
           </Link>
 
           {/* Saques */}

@@ -9,7 +9,6 @@ import {
   LayoutDashboard,
   Users,
   Building2,
-  FileText,
   Wallet,
   ChevronLeft,
   ChevronRight,
@@ -101,13 +100,6 @@ export default function Sidebar() {
             icon={<LayoutDashboard className="h-5 w-5" />}
             label="Dashboard"
             isActive={pathname === "/dashboard"}
-            isCollapsed={isCollapsed}
-          />
-          <NavItem
-            href="/dashboard/relatorios"
-            icon={<FileText className="h-5 w-5" />}
-            label="Relatórios"
-            isActive={pathname === "/dashboard/relatorios"}
             isCollapsed={isCollapsed}
           />
           <NavItem

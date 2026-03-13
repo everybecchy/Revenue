@@ -32,17 +32,33 @@ router.get('/', authenticate, async (req, res) => {
       };
     } else {
       // Afiliado ve apenas suas metricas
-      const userMetrics = await prisma.affiliateMetric.findUnique({
+      // Busca ou cria metricas se nao existirem
+      let userMetrics = await prisma.affiliateMetric.findUnique({
         where: { userId: req.user.id }
       });
 
+      // Se nao existir, cria metricas zeradas
+      if (!userMetrics) {
+        userMetrics = await prisma.affiliateMetric.create({
+          data: {
+            userId: req.user.id,
+            registros: 0,
+            ftd: 0,
+            qftd: 0,
+            depositos: 0,
+            rev: 0,
+            cpa: 0
+          }
+        });
+      }
+
       metrics = {
-        total_registros: userMetrics?.registros || 0,
-        total_ftd: userMetrics?.ftd || 0,
-        total_qftd: userMetrics?.qftd || 0,
-        total_depositos: Number(userMetrics?.depositos || 0),
-        total_rev: Number(userMetrics?.rev || 0),
-        total_cpa: Number(userMetrics?.cpa || 0)
+        total_registros: userMetrics.registros || 0,
+        total_ftd: userMetrics.ftd || 0,
+        total_qftd: userMetrics.qftd || 0,
+        total_depositos: Number(userMetrics.depositos || 0),
+        total_rev: Number(userMetrics.rev || 0),
+        total_cpa: Number(userMetrics.cpa || 0)
       };
     }
 

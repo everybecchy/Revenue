@@ -39,10 +39,15 @@ router.get('/', authenticate, isAdmin, async (req, res) => {
   }
 });
 
-// Buscar usuario por ID (apenas admin)
-router.get('/:id', authenticate, isAdmin, async (req, res) => {
+// Buscar usuario por ID (admin ou proprio usuario)
+router.get('/:id', authenticate, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
+    
+    // Verifica se e admin ou o proprio usuario
+    if (req.user.role !== 'admin' && req.user.id !== id) {
+      return res.status(403).json({ error: 'Acesso negado' });
+    }
     
     const user = await prisma.user.findUnique({
       where: { id },
@@ -77,7 +82,7 @@ router.get('/:id', authenticate, isAdmin, async (req, res) => {
       houses: user.affiliateHouses.map(ah => ({
         id: ah.id,
         house_id: ah.houseId,
-        house_name: ah.house.name,
+        house_name: ah.house?.name || 'Casa removida',
         cpa_agreement: ah.cpaAgreement,
         custom_link: ah.customLink,
         is_active: ah.isActive

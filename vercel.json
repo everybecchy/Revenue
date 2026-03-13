@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "installCommand": "cd Revenue-app && pnpm install",
+  "buildCommand": "cd Revenue-app && pnpm run build",
+  "outputDirectory": "Revenue-app/.next"
+}

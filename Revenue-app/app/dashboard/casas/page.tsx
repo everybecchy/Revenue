@@ -20,10 +20,15 @@ export default function CasasPage() {
   );
 
   // Busca os links personalizados do usuario
-  const { data: userDetails, isLoading } = useSWR<UserWithHouses>(
+  const { data: userDetails, isLoading, error } = useSWR<UserWithHouses>(
     token && user?.id ? `/api/users/${user.id}` : null,
     (url: string): Promise<UserWithHouses> => api(url, { token })
   );
+
+  console.log("[v0] User:", user);
+  console.log("[v0] User Details:", userDetails);
+  console.log("[v0] User Houses:", userDetails?.houses);
+  console.log("[v0] Error:", error);
 
   const handleCopyLink = async (link: string, houseId: number) => {
     await navigator.clipboard.writeText(link);
